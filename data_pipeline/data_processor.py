@@ -12,9 +12,9 @@ BASE_URL = "https://www.seor.fr/"
 LIST_URL = "https://www.seor.fr/fiches-oiseaux.php"
 HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
 
-def normalize_filename(text):
+def normalize_filename(text, categorie="oiseau"):
     """
-    Transforme 'Astrild ondulé' en 'astrild_ondule.jpg'
+    Transforme 'Astrild ondulé' en 'oiseau_astrild_ondule.jpg'
     """
     # 1. Enlever les accents
     text = unicodedata.normalize('NFD', text)
@@ -24,7 +24,8 @@ def normalize_filename(text):
     text = re.sub(r'[\s\-]+', '_', text)
     # 3. Supprimer les caractères non-alphanumériques restants
     text = re.sub(r'[^\w_]', '', text)
-    return f"{text}.jpg"
+    # 4. Ajout du préfixe
+    return f"{categorie}_{text}.jpg"
 
 def get_uicn_status(soup):
     try:
@@ -62,19 +63,16 @@ def scrape_seor_data():
     response = requests.get(LIST_URL, headers=HEADERS)
     soup = BeautifulSoup(response.text, 'html.parser')
     items = soup.find_all('div', class_='fiche_oiseau_detail')
-    
+
     print(f"🔎 {len(items)} oiseaux trouvés. Génération de la base...")
     birds_list = []
 
     for item in items:
         try:
-            # Extraction des noms
-            # h2 contient souvent le nom commun principal utilisé pour les fichiers
-            main_name = item.find('h2').text.strip() 
+            main_name = item.find('h2').text.strip()
             nom_pei = item.find('h3').text.strip()
             detail_link = BASE_URL + item.find('a', class_='fiche_oiseau_bloc')['href']
 
-            # Logique de Statut CSS
             img_container = item.find('div', class_='fiche_oiseau_img')
             css_classes = img_container.get('class', [])
             status = "Non défini"
@@ -85,15 +83,14 @@ def scrape_seor_data():
             elif 'espece_occasionnel' in css_classes: status = "Occasionnel"
             elif 'espece_disparue' in css_classes: status = "Disparue"
 
-            # Récupération des détails (UICN, Identification, Habitat)
             print(f"📖 Lecture : {main_name}...")
             res_det = requests.get(detail_link, headers=HEADERS)
             soup_det = BeautifulSoup(res_det.text, 'html.parser')
             uicn = get_uicn_status(soup_det)
             ident, hab = get_description_blocks(soup_det)
 
-            # Référence à l'image locale normalisée
-            local_image_name = normalize_filename(main_name)
+            # Appel de la fonction avec le préfixe explicite (bien qu'il soit par défaut)
+            local_image_name = normalize_filename(main_name, categorie="oiseau")
 
             birds_list.append({
                 'nom_pei': nom_pei,
@@ -102,7 +99,7 @@ def scrape_seor_data():
                 'uicn': uicn,
                 'identification': ident,
                 'habitat': hab,
-                'image_path': local_image_name, # Référence le fichier .jpg local
+                'image_path': local_image_name,
                 'zone_id': 0
             })
             time.sleep(1)
@@ -117,12 +114,12 @@ def generate_sqlite(data):
     if not data: return
     df = pd.DataFrame(data)
     db_name = "biodiv_reunion.db"
-    
+
     conn = sqlite3.connect(db_name)
     df.to_sql('species', conn, if_exists='replace', index_label='id')
-    
+
     conn.close()
-    print(f"\n✅ Base de données '{db_name}' générée avec les références locales.")
+    print(f"\n✅ Base de données '{db_name}' générée avec les références préfixées.")
 
 if __name__ == "__main__":
     results = scrape_seor_data()

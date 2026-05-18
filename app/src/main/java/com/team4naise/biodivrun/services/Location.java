@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.location.*;
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.team4naise.biodivrun.data.Zone;
 
 public class Location {

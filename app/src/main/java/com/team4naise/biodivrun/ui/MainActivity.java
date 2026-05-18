@@ -1,4 +1,4 @@
-package com.team4naise.biodivrun;
+package com.team4naise.biodivrun.ui;
 
 import android.os.Bundle;
 
@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.team4naise.biodivrun.R;
 
 public class MainActivity extends AppCompatActivity {
 
