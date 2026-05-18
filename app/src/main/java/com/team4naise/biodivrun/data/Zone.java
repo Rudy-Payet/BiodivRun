@@ -1,24 +1,30 @@
 package com.team4naise.biodivrun.data;
 
 public class Zone {
-    int id;
-    long hautDroit, hautGauche, basDroit, basGauche;
+    int id, rayon;
+    String nomZone;
+    long latMin, latMax, lonMin, lonMax;
 
-    public Zone( int id, long hautD, long hautG, long basD, long basG){
+    public Zone( int id, String nomZ, int ray, long latMin, long latMax, long lonMin, long lonMax){
         this.id = id;
-        this.hautDroit = hautD;
-        this.hautGauche = hautG;
-        this.basDroit = basD;
-        this.basGauche = basG;
+        this.nomZone = nomZ;
+        this.rayon = ray;
+        this.latMin = latMin;
+        this.latMax = latMax;
+        this.lonMin = lonMin;
+        this.lonMax = lonMax;
     }
 
     public int getId(){return id;}
+    public String getNomZ(){return nomZone;}
 
-    public long getHautDroit() {return hautDroit;}
+    public int getRayon() {return rayon;}
 
-    public long getHautGauche() {return hautGauche;}
+    public long getLatMin() {return latMin;}
 
-    public long getBasDroit() {return basDroit;}
+    public long getLatMax() {return latMax;}
 
-    public long getBasGauche() {return basGauche;}
+    public long getLonMin() {return lonMin;}
+
+    public long getLonMax() {return lonMax;}
 }
