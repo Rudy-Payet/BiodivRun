@@ -1,0 +1,29 @@
+# Android Studio & Gradle
+.gradle/
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+/.idea/modules.xml
+/.idea/deploymentTargetSelector.xml
+.DS_Store
+/build/
+/app/build/
+*.iml
+*.apk
+*.bundle
+
+# Android Device/Emulator caches
+.navigation/
+
+# Python (pour le dossier data_pipeline)
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+.env
+.pytest_cache/
+
+# Base de données temporaire de travail (Optionnel)
+*.db-journal
