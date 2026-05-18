@@ -11,6 +11,8 @@
 *.iml
 *.apk
 *.bundle
+# Ignorer tout le dossier de configuration Android Studio
+.idea/
 
 # Android Device/Emulator caches
 .navigation/
