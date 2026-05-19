@@ -69,15 +69,14 @@ public class MainActivity extends AppCompatActivity {
         //  Bouton scan
         View btnScan = findViewById(R.id.btn_scan);
         if (btnScan != null) {
-            btnScan.setOnClickListener(v -> lancerScan());
-        }
-    }
+            findViewById(R.id.btn_scan).setOnClickListener(v -> {
+                // Ce message apparaîtra en bas de l'écran pour confirmer le clic
+                android.widget.Toast.makeText(this, "Recherche en cours...", android.widget.Toast.LENGTH_SHORT).show();
 
-    // ============================================================
-    // SCAN
-    // ============================================================
-    private void lancerScan() {
-        location.forcerCalculZone();
+                // On lance la recherche
+                location.demanderPermission();
+            });
+        }
     }
 
     // ============================================================
@@ -164,12 +163,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         if (location != null) location.stop();
-        if (db != null) db.close();
+
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         if (videoBackground != null) videoBackground.stopPlayback();
+        if (db != null) db.close();
     }
 }
