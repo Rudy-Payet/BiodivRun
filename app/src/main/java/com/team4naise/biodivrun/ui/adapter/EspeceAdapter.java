@@ -35,9 +35,17 @@ public class EspeceAdapter extends RecyclerView.Adapter<EspeceAdapter.EspeceView
 
     @Override
     public void onBindViewHolder(EspeceViewHolder holder, int position) {
+
         Espece espece = values.get(position);
 
-        holder.tvTitle.setText(espece.getNom()); // Nom commun
+        // gérer le cas ou les espèces n'ont pas de nom commun
+        String nom_commun = espece.getNom();
+        String nom_commun_afficher = nom_commun ;
+        if (nom_commun.equals("")) {
+            nom_commun_afficher = espece.getNomSc();
+        }
+
+        holder.tvTitle.setText(nom_commun_afficher); // Nom commun
         holder.tvSubtitle.setText(espece.getNomSc()); // nom scientifique
         holder.tvBadge.setText(espece.getUICN());    // badge uicn
 
