@@ -33,7 +33,6 @@ public class EspeceAdapter extends RecyclerView.Adapter<EspeceAdapter.EspeceView
         return new EspeceViewHolder(cellView);
     }
 
-    @SuppressLint("DiscouragedApi")
     @Override
     public void onBindViewHolder(EspeceViewHolder holder, int position) {
         Espece espece = values.get(position);
@@ -60,7 +59,7 @@ public class EspeceAdapter extends RecyclerView.Adapter<EspeceAdapter.EspeceView
     public static class EspeceViewHolder extends RecyclerView.ViewHolder {
         TextView tvTitle, tvSubtitle, tvBadge;
         ImageView ivThumbnail;
-        
+
         public EspeceViewHolder(View cellView) {
             super(cellView);
             tvTitle = cellView.findViewById(R.id.tv_title);
