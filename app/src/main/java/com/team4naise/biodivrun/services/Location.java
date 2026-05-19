@@ -47,16 +47,17 @@ public class Location {
                 if (result == null) return;
                 android.location.Location loc = result.getLastLocation();
                 if (loc != null) {
-                    dernierePosition = loc; // sauvegarder position
-                    calculerZone(loc);
+                    dernierePosition = loc;
+                    calculerZone(loc); // Lance la recherche en base de données
+
+                    // On coupe le GPS après le scan pour éviter la boucle infinie !
+                    fusedLocationClient.removeLocationUpdates(locationCallback);
                 }
             }
         };
-
-        demanderPermission();
     }
 
-    private void demanderPermission() {
+    public void demanderPermission() {
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             startLocationUpdates();
@@ -95,9 +96,6 @@ public class Location {
 
     public void setRayonKm(int rayonKm) {
         this.rayonKm = rayonKm;
-        if (dernierePosition != null) {
-            calculerZone(dernierePosition);
-        }
     }
 
     public void forcerCalculZone() {
