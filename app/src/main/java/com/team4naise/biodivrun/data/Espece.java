@@ -1,6 +1,8 @@
 package com.team4naise.biodivrun.data;
 
-public class Espece {
+import java.io.Serializable;
+
+public class Espece implements Serializable {
     private String nom, nomSc, uicn, origine, identification, habitat, imagePath;
     public Espece(String nom, String nomSc, String uicn, String origine, String ident, String habitat, String imagePath) {
         this.nom = nom;
