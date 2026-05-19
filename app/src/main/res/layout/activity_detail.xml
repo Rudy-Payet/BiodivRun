@@ -120,7 +120,7 @@
                         android:textStyle="bold"
                         android:letterSpacing="0.05"
                         android:textAllCaps="true"
-                        tools:text="Introduit" />
+                        tools:text="Protégée" />
 
                     <TextView
                         android:id="@+id/tv_badge_uicn"
