@@ -1,169 +1,200 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Écran d'accueil (V1) — version fusionnée
-    - Titres en haut
-    - Slider pour régler le rayon directement
-    - Gros bouton rouge circulaire qui lance le scan
+    Écran d'accueil (V1) — vidéo plein écran en fond
 
-    Plus d'écran Paramètres séparé : tout est ici.
+    Structure en 3 couches (FrameLayout) :
+      1. VideoView : vidéo en boucle silencieuse. Sa taille est ajustée
+         en Java au démarrage pour qu'elle déborde et remplisse l'écran.
+      2. View overlay : voile noir 50% pour assombrir et lisibilité
+      3. ConstraintLayout : tout le contenu interactif (textes, bouton, slider)
+
+    La vidéo doit être placée dans res/raw/paysages_reunion.mp4
+
+    Pas de Toolbar : UX immersive, l'utilisateur arrive direct sur le paysage.
 -->
-<androidx.constraintlayout.widget.ConstraintLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
-    tools:context=".ui.MainActivity"
-    android:id="@+id/main">
+    android:background="@color/on_background"
+    android:clipChildren="true"
+    tools:context=".ui.MainActivity">
 
-    <!-- Toolbar (sans menu désormais) -->
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
+    <!-- ▼ COUCHE 1 : Vidéo en arrière-plan (centrée, sera redimensionnée en Java) ▼ -->
+    <VideoView
+        android:id="@+id/video_background"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+    <!-- ▼ COUCHE 2 : Voile sombre pour lisibilité (50% noir) ▼ -->
+    <View
+        android:id="@+id/video_overlay"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/primary"
-        app:title="@string/app_name"
-        app:titleTextColor="@color/on_primary"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:background="#80000000" />
 
-    <!-- Titre principal -->
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="28dp"
-        android:text="@string/home_title"
-        android:textColor="@color/on_background"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+    <!-- ▼ COUCHE 3 : Tout le contenu interactif ▼ -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/content_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <!-- Sous-titre -->
-    <TextView
-        android:id="@+id/tv_tagline"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/home_tagline"
-        android:textColor="@color/on_background_muted"
-        android:textSize="15sp"
-        android:gravity="center"
-        android:lineSpacingExtra="2dp"
-        app:layout_constraintTop_toBottomOf="@id/tv_title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- Bloc de réglage du rayon -->
-    <LinearLayout
-        android:id="@+id/layout_radius"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginBottom="24dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <!-- Ligne label + valeur -->
-        <LinearLayout
-            android:layout_width="match_parent"
+        <!-- Titre principal (blanc) -->
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="60dp"
+            android:text="@string/home_title"
+            android:textColor="@android:color/white"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:shadowColor="#80000000"
+            android:shadowDx="0"
+            android:shadowDy="2"
+            android:shadowRadius="6"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/search_radius"
-                android:textColor="@color/on_background_muted"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:letterSpacing="0.08"
-                android:textAllCaps="true" />
+        <!-- Sous-titre (blanc 80%) -->
+        <TextView
+            android:id="@+id/tv_tagline"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/home_tagline"
+            android:textColor="#CCFFFFFF"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:lineSpacingExtra="2dp"
+            android:shadowColor="#80000000"
+            android:shadowDx="0"
+            android:shadowDy="2"
+            android:shadowRadius="6"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_radius_value"
-                android:layout_width="wrap_content"
+        <!-- Bloc de réglage du rayon en bas -->
+        <LinearLayout
+            android:id="@+id/layout_radius"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginBottom="40dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <!-- Ligne label + valeur -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/scan_button"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                tools:text="2,5 km" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/search_radius"
+                    android:textColor="#CCFFFFFF"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.08"
+                    android:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/tv_radius_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:shadowColor="#80000000"
+                    android:shadowDx="0"
+                    android:shadowDy="1"
+                    android:shadowRadius="4"
+                    tools:text="2,5 km" />
+
+            </LinearLayout>
+
+            <!-- Slider -->
+            <com.google.android.material.slider.Slider
+                android:id="@+id/slider_radius"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:valueFrom="0.5"
+                android:valueTo="10.0"
+                android:value="2.5"
+                android:stepSize="0.5"
+                app:thumbColor="@color/scan_button"
+                app:trackColorActive="@color/scan_button"
+                app:trackColorInactive="#4DFFFFFF" />
+
+            <!-- Min / Max -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="-4dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/radius_min"
+                    android:textColor="#B3FFFFFF"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/radius_max"
+                    android:textColor="#B3FFFFFF"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        <!-- Slider -->
-        <com.google.android.material.slider.Slider
-            android:id="@+id/slider_radius"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:valueFrom="0.5"
-            android:valueTo="10.0"
-            android:value="2.5"
-            android:stepSize="0.5"
-            app:thumbColor="@color/scan_button"
-            app:trackColorActive="@color/scan_button"
-            app:trackColorInactive="@color/primary_light" />
+        <!-- Gros bouton rouge circulaire, centré dans l'espace restant -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_scan"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="@string/scan_zone"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            app:cornerRadius="110dp"
+            app:icon="@drawable/ic_scan"
+            app:iconGravity="top"
+            app:iconPadding="12dp"
+            app:iconSize="56dp"
+            app:backgroundTint="@color/scan_button"
+            android:textColor="@color/on_scan_button"
+            app:rippleColor="@color/scan_button_ripple"
+            android:paddingTop="46dp"
+            android:paddingBottom="8dp"
+            app:elevation="8dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_tagline"
+            app:layout_constraintBottom_toTopOf="@id/layout_radius"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Min / Max -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="-4dp">
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/radius_min"
-                android:textColor="@color/on_background_muted"
-                android:textSize="12sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/radius_max"
-                android:textColor="@color/on_background_muted"
-                android:textSize="12sp" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <!-- Gros bouton rouge circulaire, centré dans l'espace restant -->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_scan"
-        android:layout_width="220dp"
-        android:layout_height="220dp"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:text="@string/scan_zone"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:textAllCaps="false"
-        app:cornerRadius="110dp"
-        app:icon="@drawable/ic_scan"
-        app:iconGravity="top"
-        app:iconPadding="12dp"
-        app:iconSize="56dp"
-        app:backgroundTint="@color/scan_button"
-        android:textColor="@color/on_scan_button"
-        app:rippleColor="@color/scan_button_ripple"
-        android:paddingTop="46dp"
-        android:paddingBottom="8dp"
-        app:layout_constraintTop_toBottomOf="@id/tv_tagline"
-        app:layout_constraintBottom_toTopOf="@id/layout_radius"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
