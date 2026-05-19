@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Item de liste réutilisable.
+    Structure : thumbnail + titre + sous-titre + badge + chevron.
+    Utilisé pour la liste des espèces (V1), prévu aussi pour les signalements
+    de déchets (V3) ou toute autre liste avec ce pattern.
+
+    IDs génériques (le code Java se charge de remplir avec les bonnes données) :
+    - iv_thumbnail   : l'image
+    - tv_title       : ligne principale (ex : "Tortue verte")
+    - tv_subtitle    : ligne secondaire (ex : "Chelonia mydas")
+    - tv_badge       : étiquette de statut (couleur appliquée dynamiquement)
+-->
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="6dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardCornerRadius="14dp"
+    app:cardElevation="1dp"
+    app:cardBackgroundColor="@android:color/white"
+    app:strokeWidth="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:gravity="center_vertical">
+
+        <!-- Image / thumbnail -->
+        <ImageView
+            android:id="@+id/iv_thumbnail"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:scaleType="centerCrop"
+            android:background="@color/primary_light"
+            android:contentDescription="@string/cd_item_image"
+            tools:src="@tools:sample/avatars" />
+
+        <!-- Bloc texte -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="14dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/on_background"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:ellipsize="end"
+                tools:text="Titre principal" />
+
+            <TextView
+                android:id="@+id/tv_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/on_background_muted"
+                android:textSize="13sp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                tools:text="Sous-titre" />
+
+            <!-- Badge (couleur fond + texte appliquée dynamiquement en Java) -->
+            <TextView
+                android:id="@+id/tv_badge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="4dp"
+                android:background="@drawable/bg_badge"
+                android:backgroundTint="@color/status_protected_bg"
+                android:textColor="@color/status_protected"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.05"
+                android:textAllCaps="true"
+                tools:text="Badge" />
+
+        </LinearLayout>
+
+        <!-- Chevron de fin -->
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_chevron_right"
+            android:contentDescription="@null"
+            app:tint="@color/on_background_muted" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

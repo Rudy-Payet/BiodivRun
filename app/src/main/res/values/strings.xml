@@ -1,3 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">BiodivRun</string>
+
+    <!-- Application -->
+    <string name="app_name">BiodivRéunion</string>
+
+    <!-- Écran d'accueil -->
+    <string name="home_title">Découvre la biodiversité</string>
+    <string name="home_tagline">Découvre la faune et la flore présentes autour de toi à La Réunion.</string>
+    <string name="scan_zone">Scanner la zone</string>
+
+    <!-- Réglage du rayon (sur l'écran d'accueil) -->
+    <string name="search_radius">Rayon de recherche</string>
+    <string name="search_radius_help">Distance autour de toi prise en compte lors du scan.</string>
+    <string name="radius_min">0,5 km</string>
+    <string name="radius_max">10 km</string>
+
+    <!-- Écran Résultats -->
+    <string name="results_title">Espèces trouvées</string>
+    <string name="empty_results">Aucune espèce trouvée</string>
+    <string name="empty_results_hint">Essaie d\'augmenter le rayon dans les paramètres ou de te déplacer dans une autre zone.</string>
+
+    <!-- Écran Détail (fiche espèce en V1) -->
+    <string name="detail_title">Détail</string>
+    <string name="section_habitat">Habitat</string>
+    <string name="section_tips">Conseils d\'observation</string>
+    <string name="section_location">Localisation à La Réunion</string>
+
+    <!-- Statuts d'espèces -->
+    <string name="status_protected">Protégée</string>
+    <string name="status_dangerous">Dangereuse</string>
+    <string name="status_invasive">Invasive</string>
+    <string name="status_endangered">Menacée</string>
+    <string name="status_common">Commune</string>
+
+    <!-- Accessibilité -->
+    <string name="cd_item_image">Image de l\'élément</string>
+
 </resources>

@@ -1,5 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+
+    <!-- Identité de l'app (toolbar) -->
+    <color name="primary">#2E7D4F</color>
+    <color name="primary_light">#A5D6A7</color>
+    <color name="on_primary">#FFFFFF</color>
+
+    <!-- Bouton d'action principale (SCAN) -->
+    <color name="scan_button">#D32F2F</color>
+    <color name="scan_button_ripple">#9A0007</color>
+    <color name="on_scan_button">#FFFFFF</color>
+
+    <!-- Fonds et textes -->
+    <color name="background">#F7F5F0</color>
+    <color name="on_background">#1C1B1F</color>
+    <color name="on_background_muted">#6B6B6B</color>
+
+    <!-- Statuts d'espèces (bg = couleur claire, fg = couleur foncée du texte) -->
+    <color name="status_protected">#1565C0</color>
+    <color name="status_protected_bg">#E3F2FD</color>
+
+    <color name="status_dangerous">#C62828</color>
+    <color name="status_dangerous_bg">#FFEBEE</color>
+
+    <color name="status_invasive">#6A1B9A</color>
+    <color name="status_invasive_bg">#F3E5F5</color>
+
+    <color name="status_endangered">#E65100</color>
+    <color name="status_endangered_bg">#FFF3E0</color>
+
+    <color name="status_common">#2E7D4F</color>
+    <color name="status_common_bg">#E8F5E9</color>
+
 </resources>
