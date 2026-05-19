@@ -10,7 +10,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.team4naise.biodivrun.R;
 
-public class ActivityResults extends AppCompatActivity {
+public class ResultsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

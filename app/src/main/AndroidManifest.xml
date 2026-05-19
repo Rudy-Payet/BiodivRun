@@ -12,10 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BiodivRun">
         <activity
-            android:name=".ui.ActivityResults"
+            android:name=".ui.ResultsActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.DetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
