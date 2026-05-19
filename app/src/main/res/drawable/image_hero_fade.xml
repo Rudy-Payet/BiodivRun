@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Dégradé appliqué en foreground sur l'image hero de la fiche détail.
+    Transparent en haut, blanc en bas, pour fondre la photo dans le bloc
+    titre blanc qui suit (plus de coupure nette).
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:startColor="#00FFFFFF"
+        android:endColor="#FFFFFFFF"
+        android:angle="270" />
+</shape>

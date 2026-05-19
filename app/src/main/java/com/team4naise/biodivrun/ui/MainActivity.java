@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.google.android.material.slider.Slider;
 import com.team4naise.biodivrun.R;
@@ -33,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+        // le fond est sombre atm, on voit mal les icones du haut ça
+        // c'est pour forcer le fond blanc
+        new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView())
+                .setAppearanceLightStatusBars(false);
 
         ViewCompat.setOnApplyWindowInsetsListener(
                 findViewById(R.id.content_container), (v, insets) -> {

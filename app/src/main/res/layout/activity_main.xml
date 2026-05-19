@@ -52,7 +52,7 @@
             android:layout_marginTop="60dp"
             android:text="@string/home_title"
             android:textColor="@android:color/white"
-            android:textSize="32sp"
+            android:textSize="28sp"
             android:textStyle="bold"
             android:gravity="center"
             android:shadowColor="#80000000"
