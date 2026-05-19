@@ -1,22 +1,28 @@
 package com.team4naise.biodivrun.data;
 
 public class Espece {
-    private int id_espece;
-    private String nom, nomSc, taille, uicn, origine, identification, habitat, imagePath;
-    public Espece(String nom, String uicn, Zone zone) {
+    private String nom, nomSc, uicn, origine, identification, habitat, imagePath;
+    public Espece(String nom, String nomSc, String uicn, String origine, String ident, String habitat, String imagePath) {
         this.nom = nom;
+        this.nomSc = nomSc;
         this.uicn = uicn;
         this.origine = origine;
+        this.identification = ident;
+        this.habitat = habitat;
+        this.imagePath = imagePath;
     }
 
     public void setNom(String nom){this.nom = nom;}
-    public void setTaille(String t){this.taille = t;}
+    public void setNomSc(String nomSc){this.nomSc = nomSc;}
     public void setOrigine(String origine){this.origine = origine;}
     public void setUICN(String uicn){this.uicn = uicn;}
-    public String getTaille(){return taille;}
     public String getNom(){return nom;}
+    public String getNomSc(){return nomSc;}
     public String getUICN(){return uicn;}
     public String getOrigine(){return origine;}
     public String getIdentification(){return identification;}
+
+    public String getHabitat() {return habitat;}
+
     public String getImagePath(){return imagePath;}
 }
