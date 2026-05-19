@@ -100,6 +100,12 @@ public class Location {
         }
     }
 
+    public void forcerCalculZone() {
+        if (dernierePosition != null) {
+            calculerZone(dernierePosition);
+        }
+    }
+
     public void stop() {
         fusedLocationClient.removeLocationUpdates(locationCallback);
     }
