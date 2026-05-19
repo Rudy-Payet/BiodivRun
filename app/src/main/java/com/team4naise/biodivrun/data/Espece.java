@@ -3,15 +3,15 @@ package com.team4naise.biodivrun.data;
 import java.io.Serializable;
 
 public class Espece implements Serializable {
-    private String nom, nomSc, uicn, origine, identification, habitat, imagePath;
-    public Espece(String nom, String nomSc, String uicn, String origine, String ident, String habitat, String imagePath) {
+    private String nom, nomSc, uicn, origine, identification, habitat, imageName;
+    public Espece(String nom, String nomSc, String uicn, String origine, String ident, String habitat, String imageN) {
         this.nom = nom;
         this.nomSc = nomSc;
         this.uicn = uicn;
         this.origine = origine;
         this.identification = ident;
         this.habitat = habitat;
-        this.imagePath = imagePath;
+        this.imageName = imageN;
     }
 
     public void setNom(String nom){this.nom = nom;}
@@ -26,5 +26,5 @@ public class Espece implements Serializable {
 
     public String getHabitat() {return habitat;}
 
-    public String getImagePath(){return imagePath;}
+    public String getImagePath(){return imageName;}
 }
