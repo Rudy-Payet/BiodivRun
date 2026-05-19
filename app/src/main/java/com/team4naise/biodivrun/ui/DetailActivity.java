@@ -27,7 +27,7 @@ public class DetailActivity extends AppCompatActivity{
             return insets;
         });
         // Récupère l'espèce envoyée
-        Espece espece = (Espece) getIntent().getSerializableExtra("ESPECE_KEY");
+        Espece espece = (Espece) getIntent().getSerializableExtra("espece");
 
 // Remplis les champs de base (Image, Titre)
 // ...

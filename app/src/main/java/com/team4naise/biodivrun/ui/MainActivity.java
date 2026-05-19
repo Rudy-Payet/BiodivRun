@@ -1,5 +1,6 @@
 package com.team4naise.biodivrun.ui;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -13,10 +14,21 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.team4naise.biodivrun.R;
+import com.team4naise.biodivrun.data.Espece;
+import com.team4naise.biodivrun.database.BiodivDBAdapter;
+import com.team4naise.biodivrun.services.Location;
+import com.google.android.material.slider.Slider;
+
+import java.io.Serializable;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private VideoView videoBackground;
+
+    private Location location;
+
+    private BiodivDBAdapter db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +46,30 @@ public class MainActivity extends AppCompatActivity {
                 });
 
         setupBackgroundVideo();//pour setup le bond d'écran
+        db = new BiodivDBAdapter(this);
+        location = new Location(this);
+        location.setOnZoneCalculeeListener((latMin, latMax, lonMin, lonMax) -> {
+            List<Espece> especes = db.getEspecesParIntersectionSpatiale(latMin, latMax, lonMin, lonMax);
+            Intent intent = new Intent(this, ResultsActivity.class);
+            intent.putExtra("especes", (Serializable) especes);
+            startActivity(intent);
+        });
+        setupSlider();
     }
+
+    private void setupSlider() {
+        Slider slider = findViewById(R.id.slider_radius);
+        slider.addOnChangeListener((s, value, fromUser) -> {
+            if (fromUser) {
+                location.setRayonKm((int) value); // recalcule la zone
+            }
+        });
+    }
+
+
+
+
+
 
     private void setupBackgroundVideo() {
         videoBackground = findViewById(R.id.video_background);
@@ -111,6 +146,13 @@ public class MainActivity extends AppCompatActivity {
         if (videoBackground != null && videoBackground.isPlaying()) {
             videoBackground.pause();
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (location != null) location.stop();
+        if (db != null) db.close(); //  fermer la DB
     }
 
     @Override
