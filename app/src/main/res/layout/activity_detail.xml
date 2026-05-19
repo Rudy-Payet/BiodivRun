@@ -5,7 +5,7 @@
     Structure :
     - Toolbar avec flèche retour
     - Image hero
-    - Bloc d'en-tête : titre + sous-titre + 2 badges (status + UICN)
+    - Bloc d'en-tête : titre + sous-titre + 2 badges (statut + UICN)
     - Container vertical qui contient N cartes de section, remplies en Java
 
     Le container "container_sections" est vide dans le XML. Le code Java
@@ -150,11 +150,82 @@
                 android:layout_marginHorizontal="16dp"
                 android:orientation="vertical" />
             <!-- ▲ Java y inflate des copies de section_card.xml ▲ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-            <!-- Espace en bas -->
-            <View
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="8dp"
+                android:contentDescription="@null"
+                android:visibility="gone"
+                app:tint="@color/primary"
+                tools:visibility="visible"
+                tools:src="@android:drawable/ic_dialog_info" />
+
+            <TextView
+                android:id="@+id/tv_section_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primary"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.08"
+                android:textAllCaps="true"
+                tools:text="Description" />
+
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tv_section_body"
                 android:layout_width="match_parent"
-                android:layout_height="24dp" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/on_background"
+                android:textSize="14sp"
+                android:lineSpacingExtra="3dp"
+                tools:text="Ce tout petit oiseau brun se reconnaît à son bec et son masque rouges. Il possède également une tâche rose ventrale." />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="8dp"
+                    android:contentDescription="@null"
+                    android:visibility="gone"
+                    app:tint="@color/primary"
+                    tools:visibility="visible"
+                    tools:src="@android:drawable/ic_dialog_info" />
+
+                <TextView
+                    android:id="@+id/tv_section_env"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/primary"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.08"
+                    android:textAllCaps="true"
+                    tools:text="Environnement" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_section_habitat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/on_background"
+                android:textSize="14sp"
+                android:lineSpacingExtra="3dp"
+                tools:text="habitat du oiso" />
 
         </LinearLayout>
 
