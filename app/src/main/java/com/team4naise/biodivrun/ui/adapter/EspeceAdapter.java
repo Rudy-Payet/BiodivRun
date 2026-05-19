@@ -40,7 +40,7 @@ public class EspeceAdapter extends RecyclerView.Adapter<EspeceAdapter.EspeceView
         Espece espece = values.get(position);
 
         String nom = espece.getNom();
-        String statut = espece.getStatut();
+        String statut = espece.getUICN();
 
         // Retrait du .jpg pour correspondre au nom dans 'drawable'
         // Android Studio retire automatiquement l'extension à la compilation
