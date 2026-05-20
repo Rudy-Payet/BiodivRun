@@ -44,8 +44,11 @@ public class DetailActivity extends AppCompatActivity{
         TextView tvSubtitle = findViewById(R.id.tv_subtitle);
         TextView tvBadgeStatus = findViewById(R.id.tv_badge_status);
         TextView tvBadgeUicn = findViewById(R.id.tv_badge_uicn);
+        TextView tvSectionTitle = findViewById(R.id.tv_section_title);
         TextView tvSectionBody = findViewById(R.id.tv_section_body);
+        TextView tvSectionEnv = findViewById(R.id.tv_section_env);
         TextView tvSectionHabitat = findViewById(R.id.tv_section_habitat);
+
         String nomImage = espece.getImagePath().replace(".jpg", "");
         // Trouve l'id de l'image dans drawable
         int resId = getResources().getIdentifier(nomImage, "drawable", getPackageName());
@@ -71,11 +74,15 @@ public class DetailActivity extends AppCompatActivity{
         } else {
             tvBadgeUicn.setVisibility(View.GONE);
         }
+
+        //section du bas
+        tvSectionTitle.setText("Description");
         if (espece.getIdentification() != null && !espece.getIdentification().isEmpty()) {
             tvSectionBody.setText(espece.getIdentification());
         } else {
             tvSectionBody.setText("Pas de description.");
         }
+        tvSectionEnv.setText("Environnement");
         if (espece.getHabitat() != null && !espece.getHabitat().isEmpty()) {
             tvSectionHabitat.setText(espece.getHabitat());
         } else {

@@ -122,7 +122,7 @@
                         android:textStyle="bold"
                         android:letterSpacing="0.05"
                         android:textAllCaps="true"
-                        tools:text="Introduit" />
+                        tools:text="Origine" />
 
                     <TextView
                         android:id="@+id/tv_badge_uicn"
@@ -163,10 +163,8 @@
                         android:layout_height="20dp"
                         android:layout_marginEnd="8dp"
                         android:contentDescription="@null"
-                        android:visibility="gone"
-                        app:tint="@color/primary"
-                        tools:visibility="visible"
-                        tools:src="@android:drawable/ic_dialog_info" />
+                        android:src="@android:drawable/ic_dialog_info"
+                        app:tint="@color/primary" />
 
                     <TextView
                         android:id="@+id/tv_section_title"
@@ -201,10 +199,8 @@
                         android:layout_height="20dp"
                         android:layout_marginEnd="8dp"
                         android:contentDescription="@null"
-                        android:visibility="gone"
-                        app:tint="@color/primary"
-                        tools:visibility="visible"
-                        tools:src="@android:drawable/ic_dialog_info" />
+                        android:src="@android:drawable/ic_dialog_info"
+                        app:tint="@color/primary" />
 
                     <TextView
                         android:id="@+id/tv_section_env"
