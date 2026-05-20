@@ -93,6 +93,11 @@ public class ResultsActivity extends AppCompatActivity {
             return;
         }
 
+        // Met à jour le titre de la toolbar avec le nombre de résultats
+        String title = getResources().getQuantityString(
+                R.plurals.results_title_count, especes.size(), especes.size());
+        toolbar.setTitle(title);
+
         setupList();
     }
 

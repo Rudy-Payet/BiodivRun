@@ -40,5 +40,9 @@
     <string name="menu_view_list">Vue liste</string>
 
     <string name="scan_loading">Recherche en cours…</string>
+    <plurals name="results_title_count">
+        <item quantity="one">%d espèce trouvée</item>
+        <item quantity="other">%d espèces trouvées</item>
+    </plurals>
 
 </resources>
