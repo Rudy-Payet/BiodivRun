@@ -1,5 +1,4 @@
 package com.team4naise.biodivrun.ui;
-import androidx.core.splashscreen.SplashScreen;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -7,7 +6,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.VideoView;
-
+import androidx.core.splashscreen.SplashScreen;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -31,9 +30,17 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Installe le splash screen via la lib AndroidX (transition propre)
-        SplashScreen.installSplashScreen(this);
+
+        SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
+
+        // Garde le splash AndroidX visible pendant 1.5 sec
+        final boolean[] readyToShow = { false };
+        splashScreen.setKeepOnScreenCondition(() -> !readyToShow[0]);
+
         super.onCreate(savedInstanceState);
+
+        new android.os.Handler(android.os.Looper.getMainLooper())
+                .postDelayed(() -> readyToShow[0] = true, 1500);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         // le fond est sombre atm, on voit mal les icones du haut ça
