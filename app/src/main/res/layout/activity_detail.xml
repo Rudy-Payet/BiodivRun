@@ -36,6 +36,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
+    android:orientation="vertical"
     tools:context=".ui.DetailActivity"
     android:id="@+id/main">
 
@@ -68,8 +69,9 @@
             <ImageView
                 android:id="@+id/iv_hero"
                 android:layout_width="match_parent"
-                android:layout_height="240dp"
-                android:scaleType="centerCrop"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
                 android:background="@color/primary_light"
                 android:contentDescription="@string/cd_item_image"
                 tools:src="@tools:sample/backgrounds/scenic" />
@@ -114,13 +116,13 @@
                         android:paddingHorizontal="12dp"
                         android:paddingVertical="6dp"
                         android:background="@drawable/bg_badge"
-                        android:backgroundTint="@color/on_background_muted"
-                        android:textColor="@android:color/white"
+                        android:backgroundTint="@color/status_protected_bg"
+                        android:textColor="@color/status_protected"
                         android:textSize="12sp"
                         android:textStyle="bold"
                         android:letterSpacing="0.05"
                         android:textAllCaps="true"
-                        tools:text="Protégée" />
+                        tools:text="Introduit" />
 
                     <TextView
                         android:id="@+id/tv_badge_uicn"
@@ -148,85 +150,86 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:orientation="vertical" />
+                android:orientation="vertical" >
             <!-- ▲ Java y inflate des copies de section_card.xml ▲ -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginEnd="8dp"
-                android:contentDescription="@null"
-                android:visibility="gone"
-                app:tint="@color/primary"
-                tools:visibility="visible"
-                tools:src="@android:drawable/ic_dialog_info" />
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginEnd="8dp"
+                        android:contentDescription="@null"
+                        android:visibility="gone"
+                        app:tint="@color/primary"
+                        tools:visibility="visible"
+                        tools:src="@android:drawable/ic_dialog_info" />
 
-            <TextView
-                android:id="@+id/tv_section_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/primary"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:letterSpacing="0.08"
-                android:textAllCaps="true"
-                tools:text="Description" />
+                    <TextView
+                        android:id="@+id/tv_section_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/primary"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.08"
+                        android:textAllCaps="true"
+                        tools:text="Description" />
 
-            </LinearLayout>
-            <TextView
-                android:id="@+id/tv_section_body"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textColor="@color/on_background"
-                android:textSize="14sp"
-                android:lineSpacingExtra="3dp"
-                tools:text="Ce tout petit oiseau brun se reconnaît à son bec et son masque rouges. Il possède également une tâche rose ventrale." />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                android:gravity="center_vertical">
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_section_body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@color/on_background"
+                    android:textSize="14sp"
+                    android:lineSpacingExtra="3dp"
+                    tools:text="Ce tout petit oiseau brun se reconnaît à son bec et son masque rouges. Il possède également une tâche rose ventrale." />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical">
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginEnd="8dp"
-                    android:contentDescription="@null"
-                    android:visibility="gone"
-                    app:tint="@color/primary"
-                    tools:visibility="visible"
-                    tools:src="@android:drawable/ic_dialog_info" />
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginEnd="8dp"
+                        android:contentDescription="@null"
+                        android:visibility="gone"
+                        app:tint="@color/primary"
+                        tools:visibility="visible"
+                        tools:src="@android:drawable/ic_dialog_info" />
+
+                    <TextView
+                        android:id="@+id/tv_section_env"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/primary"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.08"
+                        android:textAllCaps="true"
+                        tools:text="Environnement" />
+
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/tv_section_env"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tv_section_habitat"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/primary"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:letterSpacing="0.08"
-                    android:textAllCaps="true"
-                    tools:text="Environnement" />
+                    android:layout_marginTop="8dp"
+                    android:textColor="@color/on_background"
+                    android:textSize="14sp"
+                    android:lineSpacingExtra="3dp"
+                    tools:text="habitat du oiso" />
 
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/tv_section_habitat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textColor="@color/on_background"
-                android:textSize="14sp"
-                android:lineSpacingExtra="3dp"
-                tools:text="habitat du oiso" />
-
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
