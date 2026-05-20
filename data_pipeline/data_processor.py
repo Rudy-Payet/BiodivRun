@@ -174,8 +174,8 @@ plants_list = [
         'nom_scientifique': "Jacaranda mimosifolia",
         'origine': "Introduit",
         'uicn': "NE",
-        'identification': "",
-        'habitat': "",
+        'identification': "Arbre au port étalé, remarquable pour sa floraison spectaculaire d'un bleu-mauve intense. Ses feuilles sont très finement découpées comme celles du mimosa. Ses fruits sont des capsules rondes, plates et ligneuses.",
+        'habitat': "Très planté dans les parcs, les jardins et le long des routes, particulièrement dans les mi-pentes et les Hauts où la fraîcheur favorise sa floraison.",
         'image_path': "plante_jacaranda_mimosifolia.jpg"
     },
     {
@@ -184,8 +184,8 @@ plants_list = [
         'nom_scientifique': "Delonix regia",
         'origine': "Introduit",
         'uicn': "NE",
-        'identification': "",
-        'habitat': "",
+        'identification': "Grand arbre au port en parasol majestueux. Célèbre pour sa floraison rouge écarlate massive qui habille l'arbre à l'arrivée de l'été. Ses fruits sont de très longues gousses plates et suspendues, virant au brun foncé.",
+        'habitat': "Emblématique des zones basses et chaudes de l'île. Très présent sur tout le littoral, en milieu urbain et au bord des routes.",
         'image_path': "plante_delonix_regia.jpg"
     },
     {
@@ -194,9 +194,9 @@ plants_list = [
         'nom_scientifique': "Plumeria rubra",
         'origine': "Introduit",
         'uicn': "NE",
-        'identification': "",
-        'habitat': "",
-        'image_path': "plante_plumeria_rubrajpg"
+        'identification': "Petit arbre aux branches épaisses, noueuses et charnues qui produisent un latex blanc à la cassure. Les fleurs à 5 pétales sont cireuses, très parfumées et colorées (blanc, jaune, rose ou rouge).",
+        'habitat': "Cultivé dans les parcs, les jardins privatifs et les espaces publics. S'épanouit pleinement dans les zones sèches, ensoleillées et côtières.",
+        'image_path': "plante_plumeria_rubra.jpg"
     }
 ]
 espece_zone_plants = [
