@@ -54,8 +54,15 @@ public class DetailActivity extends AppCompatActivity{
         // Trouve l'id de l'image dans drawable
         int resId = getResources().getIdentifier(nomImage, "drawable", getPackageName());
 
-        tvTitle.setText(espece.getNom());
-        tvSubtitle.setText(espece.getNomSc());
+        // Si pas de nom commun, on utilise le nom scientifique en titre
+        String nomCommun = espece.getNom();
+        if (nomCommun == null || nomCommun.isEmpty()) {
+            tvTitle.setText(espece.getNomSc());
+            tvSubtitle.setVisibility(View.GONE);  // pas de sous-titre redondant
+        } else {
+            tvTitle.setText(nomCommun);
+            tvSubtitle.setText(espece.getNomSc());
+        }
 
 
         if (resId != 0) {

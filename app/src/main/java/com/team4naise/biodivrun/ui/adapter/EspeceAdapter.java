@@ -48,7 +48,16 @@ public class EspeceAdapter extends RecyclerView.Adapter<EspeceAdapter.EspeceView
         }
 
         holder.tvTitle.setText(nom_commun_afficher); // Nom commun
-        holder.tvSubtitle.setText(espece.getNomSc()); // nom scientifique
+        String nomCommun = espece.getNom();
+        if (nomCommun == null || nomCommun.isEmpty()) {
+            // Pas de nom commun : on utilise le nom scientifique en titre, et on cache le sous-titre
+            holder.tvTitle.setText(espece.getNomSc());
+            holder.tvSubtitle.setVisibility(View.GONE);
+        } else {
+            holder.tvTitle.setText(nomCommun);
+            holder.tvSubtitle.setVisibility(View.VISIBLE);
+            holder.tvSubtitle.setText(espece.getNomSc());
+        }
         holder.tvBadge.setText(espece.getUicnLabel());// badge uicn labelle complet
         holder.tvBadge.setBackgroundTintList( //badge toujours il appelle la couleur
                 ContextCompat.getColorStateList(context, espece.getUicnColor()));
