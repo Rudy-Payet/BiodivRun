@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.team4naise.biodivrun.R;
 import com.team4naise.biodivrun.data.Espece;
@@ -47,7 +49,11 @@ public class EspeceAdapter extends RecyclerView.Adapter<EspeceAdapter.EspeceView
 
         holder.tvTitle.setText(nom_commun_afficher); // Nom commun
         holder.tvSubtitle.setText(espece.getNomSc()); // nom scientifique
-        holder.tvBadge.setText(espece.getUICN());    // badge uicn
+        holder.tvBadge.setText(espece.getUicnLabel());// badge uicn labelle complet
+        holder.tvBadge.setBackgroundTintList( //badge toujours il appelle la couleur
+                ContextCompat.getColorStateList(context, espece.getUicnColor()));
+        holder.tvBadge.setTextColor(
+                ContextCompat.getColor(context, espece.getUicnTextColor()));  //
 
         // Retrait du .jpg pour correspondre au nom dans 'drawable'
         // Android Studio retire automatiquement l'extension à la compilation

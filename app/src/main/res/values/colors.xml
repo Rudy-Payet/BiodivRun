@@ -32,4 +32,20 @@
     <color name="status_common">#2E7D4F</color>
     <color name="status_common_bg">#E8F5E9</color>
 
+    <!-- Couleurs officielles UICN pour les badges de statut -->
+    <color name="uicn_ex">#000000</color>  <!-- Éteint : noir -->
+    <color name="uicn_ew">#542344</color>  <!-- Éteint à l'état sauvage : violet foncé -->
+    <color name="uicn_cr">#D81E05</color>  <!-- En danger critique : rouge -->
+    <color name="uicn_en">#FC7F3F</color>  <!-- En danger : orange -->
+    <color name="uicn_vu">#F9E814</color>  <!-- Vulnérable : jaune -->
+    <color name="uicn_nt">#CCE226</color>  <!-- Quasi menacé : vert-jaune -->
+    <color name="uicn_lc">#60C659</color>  <!-- Préoccupation mineure : vert -->
+    <color name="uicn_dd">#D1D1C6</color>  <!-- Données insuffisantes : gris clair -->
+    <color name="uicn_ne">#E8E8E8</color>  <!-- Non évalué : presque blanc -->
+
+    <!-- Couleur du sous-titre italique (nom scientifique) — gris-vert subtil -->
+    <color name="subtitle_green">#5F7D6B</color>
+    <!-- Ripple subtil pour les cartes (primary à 20% dde transparence) -->
+    <color name="ripple_card">#332E7D4F</color>
+
 </resources>
