@@ -140,7 +140,10 @@
                 android:stepSize="0.5"
                 app:thumbColor="@color/scan_button"
                 app:trackColorActive="@color/scan_button"
-                app:trackColorInactive="#4DFFFFFF" />
+                app:trackColorInactive="#4DFFFFFF"
+                app:tickColorActive="#FFFFFF"
+                app:tickColorInactive="#FFFFFF"
+                app:haloColor="@color/scan_button_ripple" />
 
             <!-- Min / Max -->
             <LinearLayout
@@ -185,6 +188,7 @@
             android:textAllCaps="false"
             app:cornerRadius="110dp"
             app:icon="@drawable/ic_scan"
+            app:iconTint="@color/on_scan_button"
             app:iconGravity="top"
             app:iconPadding="12dp"
             app:iconSize="56dp"
@@ -206,5 +210,9 @@
         android:id="@+id/scan_loader"
         layout="@layout/view_scan_loading"
         android:visibility="gone" />
+    <!-- Splash custom au lancement (logo entier, masqué après 1.5s) -->
+    <include
+        android:id="@+id/launch_splash"
+        layout="@layout/view_launch_splash" />
 
 </FrameLayout>

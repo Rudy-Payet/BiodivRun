@@ -32,18 +32,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
-
-        // Garde le splash AndroidX visible pendant 1.5 sec
-        final boolean[] readyToShow = { false };
-        splashScreen.setKeepOnScreenCondition(() -> !readyToShow[0]);
+        // Splash système (très bref, sans icône visible grâce à transparent_icon)
+        SplashScreen.installSplashScreen(this);
 
         super.onCreate(savedInstanceState);
-
-        new android.os.Handler(android.os.Looper.getMainLooper())
-                .postDelayed(() -> readyToShow[0] = true, 1500);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+        // Splash custom (logo entier) : visible 1.5s puis fondu
+        View launchSplash = findViewById(R.id.launch_splash);
+        launchSplash.postDelayed(() -> {
+            launchSplash.animate()
+                    .alpha(0f)
+                    .setDuration(400)
+                    .withEndAction(() -> launchSplash.setVisibility(View.GONE))
+                    .start();
+        }, 1500);
         // Référence à l'overlay de chargement (masqué au démarrage)
         scanLoader = findViewById(R.id.scan_loader);
         // le fond est sombre atm, on voit mal les icones du haut ça

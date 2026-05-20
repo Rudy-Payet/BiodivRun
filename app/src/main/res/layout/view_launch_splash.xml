@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Overlay de lancement (visible 1.5s puis fondu).
+    Affiche le logo BiodivRun ENTIER sur fond vert primary,
+    contrairement au splash système Android 12+ qui rogne l'icône en disque.
+
+    clickable + focusable = bloque les touches pendant l'affichage
+-->
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary"
+    android:clickable="true"
+    android:focusable="true"
+    >
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:maxWidth="280dp"
+        android:maxHeight="280dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/logo_app"
+
+        android:contentDescription="@null" />
+
+</FrameLayout>
