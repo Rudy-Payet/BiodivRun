@@ -12,47 +12,74 @@ BASE_URL = "https://www.seor.fr/"
 LIST_URL = "https://www.seor.fr/fiches-oiseaux.php"
 HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
 
-# --- Définition des Zones avec Mots-clés ET Coordonnées (Bounding Boxes) ---
-# Format : id: {"nom": "...", "mots_cles": [...], "lat_min": ..., "lat_max": ..., "lon_min": ..., "lon_max": ...}
+# --- Définition des Zones avec Mots-clés enrichis ET Coordonnées (Bounding Boxes) ---
 ZONES_DATA = {
     1: {
-        "nom": "Littoral et zones côtières",
-        "mots_cles": ["mer", "océan", "plage", "littoral", "côte", "marin", "marine", "falaise"],
-        "lat_min": -21.38, "lat_max": -20.87, "lon_min": 55.21, "lon_max": 55.83 # Englobe globalement les côtes
+        "nom": "Ouest (Savane, Lagons et Étangs)", 
+        # De Saint-Paul à Saint-Leu. Milieux secs et zones humides côtières.
+        "mots_cles": ["savane", "lagon", "plage", "étang", "sec", "sèche", "ouest", "littoral", "mer", "océan", "côte", "mangrove"],
+        "lat_min": -21.30, "lat_max": -21.00, "lon_min": 55.20, "lon_max": 55.35 
     },
     2: {
-        "nom": "Forêts et milieux denses",
-        "mots_cles": ["forêt", "bois", "arbres", "végétation dense", "canopée", "endémique"],
-        "lat_min": -21.15, "lat_max": -20.95, "lon_min": 55.40, "lon_max": 55.60 # Centre de l'île (Bébour/Bélouve)
+        "nom": "Nord & Est (Milieux Urbains et Agricoles)", 
+        # De La Possession à Saint-Benoît. Villes, parcs et champs de canne.
+        "mots_cles": ["ville", "jardin", "urbain", "parc", "habitation", "agricole", "canne", "culture", "périurbain", "nord", "est", "bâtiment"],
+        "lat_min": -21.00, "lat_max": -20.87, "lon_min": 55.35, "lon_max": 55.85 
     },
     3: {
-        "nom": "Hauts et Montagnes",
-        "mots_cles": ["altitude", "montagne", "hauts", "2 000 m", "piton", "volcan", "rempart", "cirque"],
-        "lat_min": -21.28, "lat_max": -21.05, "lon_min": 55.45, "lon_max": 55.75 # Zone Volcan / Piton des Neiges
+        "nom": "Sud & Sud Sauvage (Basalte et Forêts de basse altitude)", 
+        # De Saint-Pierre à Saint-Philippe.
+        "mots_cles": ["sud", "sauvage", "falaise", "basalte", "vacoa", "coulée", "mer", "océan", "pélagique"],
+        "lat_min": -21.40, "lat_max": -21.30, "lon_min": 55.35, "lon_max": 55.85 
     },
     4: {
-        "nom": "Milieux Urbains et Ouverts",
-        "mots_cles": ["ville", "jardin", "urbain", "parc", "habitation", "agricole", "savane", "ouvert"],
-        "lat_min": -21.00, "lat_max": -20.87, "lon_min": 55.35, "lon_max": 55.55 # Principalement le Nord (St-Denis/Ste-Marie)
+        "nom": "Centre & Cirques (Forêts humides et Ravines)", 
+        # Mafate, Salazie, Cilaos, Bébour/Bélouve.
+        "mots_cles": ["forêt", "humide", "cirque", "ravine", "montagne", "altitude", "bébour", "bélouve", "canopée", "sous-bois", "endémique", "indigène", "rempart"],
+        "lat_min": -21.20, "lat_max": -21.00, "lon_min": 55.35, "lon_max": 55.65 
+    },
+    5: {
+        "nom": "Massif du Volcan (Landes et minéral)", 
+        # Piton de la Fournaise, Plaine des Sables.
+        "mots_cles": ["volcan", "fournaise", "lande", "minéral", "roche", "caillou", "haute altitude", "plaine des sables"],
+        "lat_min": -21.30, "lat_max": -21.20, "lon_min": 55.65, "lon_max": 55.85 
     }
 }
 
-def attribuer_zones(habitat_text):
-    """Analyse le texte et retourne la liste des IDs de zones correspondantes."""
+def attribuer_zones(habitat_text, main_name=""):
+    """
+    Analyse le texte et retourne la liste des IDs de zones.
+    Utilise les Regex pour éviter les faux positifs (ex: 'mer' dans 'commercial').
+    """
     zones_trouvees = []
+    
+    # Sécurité si le site de la SEOR n'a pas d'habitat pour cet oiseau
     if not habitat_text:
-        return [1, 2, 3, 4] # Partout par défaut
+        return [1, 2] # On l'assigne au Nord et à l'Ouest par défaut (souvent des migrateurs côtiers)
 
     texte_min = habitat_text.lower()
+    
     for zone_id, data in ZONES_DATA.items():
         for mot in data["mots_cles"]:
-            if mot in texte_min:
+            # Magie de la Regex : \b signifie "word boundary" (début ou fin de mot)
+            # Le s? permet d'accepter le singulier ET le pluriel automatiquement
+            pattern = r'\b' + re.escape(mot) + r's?\b'
+            
+            # Si on trouve le mot entier dans le texte
+            if re.search(pattern, texte_min):
                 zones_trouvees.append(zone_id)
-                break
+                break # On a validé cette zone, on passe à la zone suivante
                 
+    # Si l'oiseau a un habitat bizarre sans aucun de nos mots-clés
     if not zones_trouvees:
-        zones_trouvees = [1, 2, 3, 4] 
+        # On essaie d'être intelligent avec son nom
+        if "pétrel" in main_name.lower() or "paille-en-queue" in main_name.lower():
+            zones_trouvees = [4, 5] # Les oiseaux marins qui nichent dans les Hauts
+        else:
+            zones_trouvees = [2] # Zone Urbaine par défaut (la plus commune)
+            
     return zones_trouvees
+
 
 def normalize_filename(text, categorie="oiseau"):
     """Transforme 'Astrild ondulé' en 'oiseau_astrild_ondule.jpg'"""
