@@ -45,7 +45,7 @@
 
     <!-- Couleur du sous-titre italique (nom scientifique) — gris-vert subtil -->
     <color name="subtitle_green">#5F7D6B</color>
-    <!-- Ripple subtil pour les cartes (primary à 20% dde transparence) -->
-    <color name="ripple_card">#332E7D4F</color>
+    <!-- Ripple subtil pour les cartes (primary à 30% dde transparence) -->
+    <color name="ripple_card">#662E7D4F</color>
 
 </resources>
