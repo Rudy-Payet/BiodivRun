@@ -36,4 +36,9 @@
     <!-- Accessibilité -->
     <string name="cd_item_image">Image de l\'élément</string>
 
+    <string name="menu_view_map">Vue carte</string>
+    <string name="menu_view_list">Vue liste</string>
+
+    <string name="scan_loading">Recherche en cours…</string>
+
 </resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Menu de la toolbar de ResultsActivity.
+    L'icône bascule entre carte et liste selon le mode courant
+    (changée dynamiquement en Java).
+-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_toggle_view"
+        android:icon="@drawable/ic_map"
+        android:title="@string/menu_view_map"
+        app:showAsAction="always" />
+
+</menu>

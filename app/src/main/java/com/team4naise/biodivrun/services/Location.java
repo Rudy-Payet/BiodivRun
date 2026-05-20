@@ -21,7 +21,7 @@ public class Location {
     private final AppCompatActivity activity;
     private FusedLocationProviderClient fusedLocationClient;
     private LocationCallback locationCallback;
-    private int rayonKm = 10;
+    private double rayonKm = 10;
 
 
     private OnZoneCalculeeListener listener;
@@ -94,7 +94,7 @@ public class Location {
         this.listener = listener;
     }
 
-    public void setRayonKm(int rayonKm) {
+    public void setRayonKm(double rayonKm) {
         this.rayonKm = rayonKm;
     }
 

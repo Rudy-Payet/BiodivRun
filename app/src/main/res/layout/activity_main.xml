@@ -154,14 +154,18 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/radius_min"
-                    android:textColor="#B3FFFFFF"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.02"
+                    android:textColor="#E6FFFFFF"
                     android:textSize="12sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/radius_max"
-                    android:textColor="#B3FFFFFF"
+                    android:letterSpacing="0.02"
+                    android:textStyle="bold"
+                    android:textColor="#E6FFFFFF"
                     android:textSize="12sp" />
 
             </LinearLayout>
@@ -196,5 +200,11 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Overlay de chargement (visible pendant le scan, masqué par défaut) -->
+    <include
+        android:id="@+id/scan_loader"
+        layout="@layout/view_scan_loading"
+        android:visibility="gone" />
 
 </FrameLayout>

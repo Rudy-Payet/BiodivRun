@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private VideoView videoBackground;
     private Location location;
     private BiodivDBAdapter db;
+    private View scanLoader;//temps chargement
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
                 .postDelayed(() -> readyToShow[0] = true, 1500);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+        // Référence à l'overlay de chargement (masqué au démarrage)
+        scanLoader = findViewById(R.id.scan_loader);
         // le fond est sombre atm, on voit mal les icones du haut ça
         // c'est pour forcer le fond blanc
         new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView())
@@ -61,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
         // DB
         db = new BiodivDBAdapter(this);
         db.open();
-
         //  Location + callback
         location = new Location(this);
         location.setOnZoneCalculeeListener((latMin, latMax, lonMin, lonMax) -> {
@@ -69,6 +71,10 @@ public class MainActivity extends AppCompatActivity {
                     latMin, latMax, lonMin, lonMax);
             Intent intent = new Intent(this, ResultsActivity.class);
             intent.putExtra("especes", especes);
+            intent.putExtra("latMin", latMin);
+            intent.putExtra("latMax", latMax);
+            intent.putExtra("lonMin", lonMin);
+            intent.putExtra("lonMax", lonMax);
             startActivity(intent);
         });
 
@@ -80,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         if (btnScan != null) {
             findViewById(R.id.btn_scan).setOnClickListener(v -> {
                 // Ce message apparaîtra en bas de l'écran pour confirmer le clic
-                android.widget.Toast.makeText(this, "Recherche en cours...", android.widget.Toast.LENGTH_SHORT).show();
+                showScanLoader();
 
                 // On lance la recherche
                 location.demanderPermission();
@@ -94,11 +100,51 @@ public class MainActivity extends AppCompatActivity {
     private void setupSlider() {
         Slider slider = findViewById(R.id.slider_radius);
         if (slider == null) return;
+
+        android.widget.TextView tvRadiusValue = findViewById(R.id.tv_radius_value);
+
+        // Affiche la valeur initiale au démarrage
+        if (tvRadiusValue != null) {
+            tvRadiusValue.setText(formatRadius(slider.getValue()));
+        }
+
         slider.addOnChangeListener((s, value, fromUser) -> {
+            // Met à jour l'affichage à chaque changement
+            if (tvRadiusValue != null) {
+                tvRadiusValue.setText(formatRadius(value));
+            }
             if (fromUser) {
-                location.setRayonKm((int) value);
+                location.setRayonKm(value);
             }
         });
+    }
+
+    /** Formate le rayon : "2,5 km" ou "3 km" si entier. */
+    private String formatRadius(float value) {
+        if (value == (int) value) {
+            return ((int) value) + " km";
+        } else {
+            return String.format(java.util.Locale.FRENCH, "%.1f km", value);
+        }
+    }
+
+    // ============================================================
+    // LOADER (overlay pendant le scan)
+    // ============================================================
+    private void showScanLoader() {
+        if (scanLoader == null) return;
+        scanLoader.setVisibility(View.VISIBLE);
+        scanLoader.setAlpha(0f);
+        scanLoader.animate().alpha(1f).setDuration(200).start();
+    }
+
+    private void hideScanLoader() {
+        if (scanLoader == null || scanLoader.getVisibility() == View.GONE) return;
+        scanLoader.animate()
+                .alpha(0f)
+                .setDuration(200)
+                .withEndAction(() -> scanLoader.setVisibility(View.GONE))
+                .start();
     }
 
     // ============================================================
@@ -158,6 +204,7 @@ public class MainActivity extends AppCompatActivity {
         if (videoBackground != null && !videoBackground.isPlaying()) {
             videoBackground.start();
         }
+        hideScanLoader();//cache le loader
     }
 
     @Override

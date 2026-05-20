@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 public class BiodivDBAdapter {
     public static final int DB_VERSION = 1;
@@ -93,6 +94,32 @@ public class BiodivDBAdapter {
         }
         c.close();
         return listeEspeces;
+    }
+
+    /**
+     * Retourne la liste des zones où l'espèce a été observée.
+     * Chaque zone est un double[4] = [lat_min, lat_max, lon_min, lon_max].
+     * Utilisé par la vue carte pour positionner les marqueurs.
+     */
+    public List<double[]> getZonesForEspece(String nomScientifique) {
+        List<double[]> zones = new ArrayList<>();
+        String sql = "SELECT z." + COL_Z_LAT_MIN + ", z." + COL_Z_LAT_MAX + ", " +
+                "       z." + COL_Z_LON_MIN + ", z." + COL_Z_LON_MAX + " " +
+                "FROM " + TABLE_ZONES + " z " +
+                "INNER JOIN " + TABLE_ESPECE_ZONE + " ez ON z.id = ez.zone_id " +
+                "INNER JOIN " + TABLE_SPECIES + " s ON ez.espece_id = s." + COL_ID + " " +
+                "WHERE s." + COL_NOM_SCIENTIFIQUE + " = ?";
+        Cursor c = mDB.rawQuery(sql, new String[]{nomScientifique});
+        while (c.moveToNext()) {
+            zones.add(new double[]{
+                    c.getDouble(0),
+                    c.getDouble(1),
+                    c.getDouble(2),
+                    c.getDouble(3)
+            });
+        }
+        c.close();
+        return zones;
     }
 
     // --- HELPER (Copie de la DB depuis assets) ---

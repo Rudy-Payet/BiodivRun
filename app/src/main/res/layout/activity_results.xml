@@ -40,6 +40,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:listitem="@layout/item_card"
         tools:itemCount="6" />
+    <!-- ▼ Carte (cachée par défaut, visible en mode carte) ▼ -->
+    <org.osmdroid.views.MapView
+        android:id="@+id/map"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- État vide : aucun résultat trouvé (gone par défaut) -->
     <LinearLayout
