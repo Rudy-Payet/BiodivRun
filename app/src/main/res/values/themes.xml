@@ -7,6 +7,7 @@
         <item name="android:statusBarColor">@color/primary</item>
         <item name="android:windowLightStatusBar">false</item>
     </style>
+
     <!-- Forme à coins arrondis pour les ImageView (thumbnails de liste) -->
     <style name="RoundedThumbnail" parent="">
         <item name="cornerFamily">rounded</item>
@@ -14,5 +15,13 @@
     </style>
 
     <style name="Theme.BiodivRun" parent="Base.Theme.BiodivRun" />
+
+    <!-- Thème spécifique au splash screen au lancement de l'app -->
+    <!-- Thème de splash, basé sur la lib AndroidX SplashScreen -->
+    <style name="Theme.BiodivRun.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/primary</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo_app</item>
+        <item name="postSplashScreenTheme">@style/Theme.BiodivRun</item>
+    </style>
 
 </resources>

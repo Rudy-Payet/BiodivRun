@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -69,7 +70,11 @@ public class DetailActivity extends AppCompatActivity{
             tvBadgeStatus.setVisibility(View.GONE);
         }
         if (espece.getUICN() != null && !espece.getUICN().isEmpty()) {
-            tvBadgeUicn.setText(espece.getUICN());
+            tvBadgeUicn.setText(espece.getUicnLabel());           // "Préoccupation mineure (LC)"
+            tvBadgeUicn.setBackgroundTintList(
+                    ContextCompat.getColorStateList(this, espece.getUicnColor()));
+            tvBadgeUicn.setTextColor(
+                    ContextCompat.getColor(this, espece.getUicnTextColor()));
             tvBadgeUicn.setVisibility(View.VISIBLE);
         } else {
             tvBadgeUicn.setVisibility(View.GONE);

@@ -1,5 +1,5 @@
 package com.team4naise.biodivrun.ui;
-
+import androidx.core.splashscreen.SplashScreen;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Installe le splash screen via la lib AndroidX (transition propre)
+        SplashScreen.installSplashScreen(this);
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
